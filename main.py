@@ -93,16 +93,16 @@ df_tmp_d_month.write \
     .jdbc(url, "tmp_d_month", mode="overwrite", properties=propriedades)
 
 df_tmp_time.write \
-    .jdbc(url, "tmp_time", mode="overwrite", properties=propriedades)
+    .jdbc(url, "tmp_d_time", mode="overwrite", properties=propriedades)
 
 df_tmp_week.write \
-    .jdbc(url, "tmp_week", mode="overwrite", properties=propriedades)
+    .jdbc(url, "tmp_d_week", mode="overwrite", properties=propriedades)
 
 df_tmp_weekday.write \
-    .jdbc(url, "tmp_weekday", mode="overwrite", properties=propriedades)
+    .jdbc(url, "tmp_d_weekday", mode="overwrite", properties=propriedades)
 
 df_tmp_year.write \
-    .jdbc(url, "tmp_year", mode="overwrite", properties=propriedades)
+    .jdbc(url, "tmp_d_year", mode="overwrite", properties=propriedades)
 
 #df_tmp_pix_movements.write \
 #    .jdbc(url, "tmp_pix_movements", mode="append", properties=propriedades)
