@@ -1,0 +1,20 @@
+--precisa obter todos os saldos mensais da conta entre
+--Jan/2020 e Dez/2020
+
+SELECT id,
+	   account_id,
+	   amount,
+	   transaction_requested_at,
+	   transaction_completed_at,
+	   status
+from public.transfer_ins
+
+SELECT A.*
+FROM public.accounts A
+JOIN public.transfer_ins B
+ON A.account_id = B.account_id
+JOIN public.transfer_outs C
+ON A.account_id = C.account_id
+JOIN 
+
+select * from public.transfer_outs
