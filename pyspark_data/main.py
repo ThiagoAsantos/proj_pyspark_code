@@ -79,17 +79,19 @@ df_tmp_weekday.write \
 df_tmp_year.write \
     .jdbc(url, "tmp_year", mode="overwrite", properties=propriedades)
 
+df_tmp_pix_movements.printSchema()
+df_tmp_pix_movements.show()
 #df_tmp_pix_movements.write \
-#    .jdbc(url, "tmp_pix_movements", mode="overwrite", properties=propriedades)
+#    .jdbc(url, "tmp_pix_movements", mode="append", properties=propriedades)
 
 #df_tmp_state.write \
 #    .jdbc(url, "tmp_state", mode="overwrite", properties=propriedades)
 
 #df_tmp_transfer_ins.write \
-#    .jdbc(url, "tmp_transfer_ins", mode="overwrite", properties=propriedades)
+#    .jdbc(url, "tmp_transfer_ins", mode="append", properties=propriedades)
 
 #df_tmp_transfer_outs.write \
-#    .jdbc(url, "tmp_transfer_outs", mode="overwrite", properties=propriedades)
+#    .jdbc(url, "tmp_transfer_outs", mode="append", properties=propriedades)
 
 
 # Encerrar a sessão Spark
