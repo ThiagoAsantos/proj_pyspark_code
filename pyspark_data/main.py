@@ -1,5 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.conf import SparkConf
+from pyspark.sql.functions import col
 
 # Configurar diretório temporário do Spark
 dir_temporario = "/projetos/tmp"  # Substitua pelo caminho desejado
@@ -46,10 +47,34 @@ df_tmp_time = spark.read.csv(caminho_do_arquivo_d_time_csv, header=True, inferSc
 df_tmp_week = spark.read.csv(caminho_do_arquivo_d_week_csv, header=True, inferSchema=True)
 df_tmp_weekday = spark.read.csv(caminho_do_arquivo_d_weekday_csv, header=True, inferSchema=True)
 df_tmp_year = spark.read.csv(caminho_do_arquivo_d_year_csv, header=True, inferSchema=True)
-df_tmp_pix_movements = spark.read.csv(caminho_do_arquivo_pix_movements_csv, header=True, inferSchema=True)
+df_tmp_pix_movements = spark.read.csv(caminho_do_arquivo_pix_movements_csv, header=True, inferSchema=True, sep=',')
 df_tmp_state = spark.read.csv(caminho_do_arquivo_state_csv, header=True, inferSchema=True)
-df_tmp_transfer_ins = spark.read.csv(caminho_do_arquivo_transfer_ins_csv, header=True, inferSchema=True)
-df_tmp_transfer_outs = spark.read.csv(caminho_do_arquivo_transfer_outs_csv, header=True, inferSchema=True)
+df_tmp_transfer_ins = spark.read.csv(caminho_do_arquivo_transfer_ins_csv, header=True, inferSchema=True, sep=';')
+df_tmp_transfer_outs = spark.read.csv(caminho_do_arquivo_transfer_outs_csv, header=True, inferSchema=True, sep=';')
+
+# Realizar as conversões de tipo de dado
+df_tmp_pix_movements = (
+    df_tmp_pix_movements
+    .withColumn("id", col("id").cast("bigint"))
+    .withColumn("account_id", col("account_id").cast("bigint"))
+    .withColumn("pix_amount", col("pix_amount").cast("double"))
+)
+
+df_tmp_transfer_ins = (
+    df_tmp_transfer_ins
+    .withColumn("id", col("id").cast("bigint"))
+    .withColumn("account_id", col("account_id").cast("bigint"))
+    .withColumn("amount", col("amount").cast("double"))
+    .withColumn("transaction_requested_at", col("transaction_requested_at").cast("bigint"))
+)
+
+df_tmp_transfer_outs = (
+    df_tmp_transfer_outs
+    .withColumn("id", col("id").cast("bigint"))
+    .withColumn("account_id", col("account_id").cast("bigint"))
+    .withColumn("amount", col("amount").cast("double"))
+    .withColumn("transaction_requested_at", col("transaction_requested_at").cast("bigint"))
+)
 
 # Mostrar o conteúdo do DataFrame na tela
 df_tmp_accounts.write \
@@ -79,13 +104,11 @@ df_tmp_weekday.write \
 df_tmp_year.write \
     .jdbc(url, "tmp_year", mode="overwrite", properties=propriedades)
 
-df_tmp_pix_movements.printSchema()
-df_tmp_pix_movements.show()
 #df_tmp_pix_movements.write \
 #    .jdbc(url, "tmp_pix_movements", mode="append", properties=propriedades)
 
-#df_tmp_state.write \
-#    .jdbc(url, "tmp_state", mode="overwrite", properties=propriedades)
+df_tmp_state.write \
+    .jdbc(url, "tmp_state", mode="overwrite", properties=propriedades)
 
 #df_tmp_transfer_ins.write \
 #    .jdbc(url, "tmp_transfer_ins", mode="append", properties=propriedades)
