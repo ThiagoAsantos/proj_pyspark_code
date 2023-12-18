@@ -76,7 +76,6 @@ df_tmp_transfer_outs = (
     .withColumn("transaction_requested_at", col("transaction_requested_at").cast("bigint"))
 )
 
-# Mostrar o conteúdo do DataFrame na tela
 df_tmp_accounts.write \
     .jdbc(url, "tmp_accounts", mode="overwrite", properties=propriedades)
 
@@ -104,17 +103,17 @@ df_tmp_weekday.write \
 df_tmp_year.write \
     .jdbc(url, "tmp_d_year", mode="overwrite", properties=propriedades)
 
-#df_tmp_pix_movements.write \
-#    .jdbc(url, "tmp_pix_movements", mode="append", properties=propriedades)
+df_tmp_pix_movements.write \
+    .jdbc(url, "tmp_pix_movements", mode="append", properties=propriedades)
 
 df_tmp_state.write \
     .jdbc(url, "tmp_state", mode="overwrite", properties=propriedades)
 
-#df_tmp_transfer_ins.write \
-#    .jdbc(url, "tmp_transfer_ins", mode="append", properties=propriedades)
+df_tmp_transfer_ins.write \
+    .jdbc(url, "tmp_transfer_ins", mode="append", properties=propriedades)
 
-#df_tmp_transfer_outs.write \
-#    .jdbc(url, "tmp_transfer_outs", mode="append", properties=propriedades)
+df_tmp_transfer_outs.write \
+    .jdbc(url, "tmp_transfer_outs", mode="append", properties=propriedades)
 
 
 # Encerrar a sessão Spark

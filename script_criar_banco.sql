@@ -1,9 +1,3 @@
-
-
-
--- Drop tables
---DROP TABLE IF EXISTS pix_movements, transfer_outs, transfer_ins, d_time, d_weekday, d_week, d_month, d_year, accounts, customers, city, state, country;
-
 CREATE TABLE d_month (
   month_id INT PRIMARY KEY,
   action_month INT
